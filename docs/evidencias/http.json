@@ -1,0 +1,934 @@
+[
+  {
+    "title": "Login admin",
+    "request": {
+      "method": "POST",
+      "url": "/api/auth/login",
+      "authorization": null,
+      "body": {
+        "nombreUsuario": "admin",
+        "password": "[oculta]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "token": "[JWT generado; oculto en evidencia]",
+        "expiraEn": "2026-11-10T00:20:50.7410507Z",
+        "id": 1,
+        "nombreUsuario": "admin",
+        "rol": "Administrador"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Login tecnico",
+    "request": {
+      "method": "POST",
+      "url": "/api/auth/login",
+      "authorization": null,
+      "body": {
+        "nombreUsuario": "tecnico",
+        "password": "[oculta]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "token": "[JWT generado; oculto en evidencia]",
+        "expiraEn": "2026-11-10T00:20:51.2483378Z",
+        "id": 2,
+        "nombreUsuario": "tecnico",
+        "rol": "Tecnico"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Login usuario",
+    "request": {
+      "method": "POST",
+      "url": "/api/auth/login",
+      "authorization": null,
+      "body": {
+        "nombreUsuario": "usuario",
+        "password": "[oculta]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "token": "[JWT generado; oculto en evidencia]",
+        "expiraEn": "2026-11-10T00:20:51.6612516Z",
+        "id": 3,
+        "nombreUsuario": "usuario",
+        "rol": "Usuario"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Login tecnico2",
+    "request": {
+      "method": "POST",
+      "url": "/api/auth/login",
+      "authorization": null,
+      "body": {
+        "nombreUsuario": "tecnico2",
+        "password": "[oculta]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "token": "[JWT generado; oculto en evidencia]",
+        "expiraEn": "2026-11-10T00:20:52.0210452Z",
+        "id": 4,
+        "nombreUsuario": "tecnico2",
+        "rol": "Tecnico"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Login usuario2",
+    "request": {
+      "method": "POST",
+      "url": "/api/auth/login",
+      "authorization": null,
+      "body": {
+        "nombreUsuario": "usuario2",
+        "password": "[oculta]"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "token": "[JWT generado; oculto en evidencia]",
+        "expiraEn": "2026-11-10T00:20:52.3850622Z",
+        "id": 5,
+        "nombreUsuario": "usuario2",
+        "rol": "Usuario"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "02 - Contrase\u00F1a incorrecta",
+    "request": {
+      "method": "POST",
+      "url": "/api/auth/login",
+      "authorization": null,
+      "body": {
+        "nombreUsuario": "admin",
+        "password": "[oculta]"
+      }
+    },
+    "response": {
+      "status": 401,
+      "body": {
+        "message": "Credenciales incorrectas."
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Usuario inexistente: mismo mensaje",
+    "request": {
+      "method": "POST",
+      "url": "/api/auth/login",
+      "authorization": null,
+      "body": {
+        "nombreUsuario": "no-existe",
+        "password": "[oculta]"
+      }
+    },
+    "response": {
+      "status": 401,
+      "body": {
+        "message": "Credenciales incorrectas."
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "03 - Sin JWT",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes",
+      "authorization": null,
+      "body": null
+    },
+    "response": {
+      "status": 401,
+      "body": null
+    },
+    "passed": true
+  },
+  {
+    "title": "JWT alterado",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 401,
+      "body": null
+    },
+    "passed": true
+  },
+  {
+    "title": "05 - Sin t\u00EDtulo",
+    "request": {
+      "method": "POST",
+      "url": "/api/incidentes",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "descripcion": "Falla",
+        "prioridad": "Alta"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "Titulo": [
+            "The Titulo field is required."
+          ]
+        },
+        "traceId": "00-9eee98491223e042556a6184f870bff4-48be1904c8d18c8a-00"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "T\u00EDtulo solo espacios",
+    "request": {
+      "method": "POST",
+      "url": "/api/incidentes",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "titulo": "   ",
+        "descripcion": "Falla"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "Titulo": [
+            "The Titulo field is required."
+          ]
+        },
+        "traceId": "00-153c4a26d550e2007eaf7002a1000fe4-27b7f7a30af30032-00"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Enum inv\u00E1lido",
+    "request": {
+      "method": "POST",
+      "url": "/api/incidentes",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "titulo": "Falla",
+        "descripcion": "Falla",
+        "prioridad": 99
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "Prioridad": [
+            "The field Prioridad is invalid."
+          ]
+        },
+        "traceId": "00-8efcce5d6d399d097d4e3802c33612b2-d9bb6db5fc6c77bc-00"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "06 - Crear correctamente; ignora UsuarioId del cuerpo",
+    "request": {
+      "method": "POST",
+      "url": "/api/incidentes",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "titulo": "Correo no disponible",
+        "descripcion": "No permite iniciar sesi\u00F3n.",
+        "prioridad": "Alta",
+        "usuarioId": 1
+      }
+    },
+    "response": {
+      "status": 201,
+      "body": {
+        "id": 1,
+        "titulo": "Correo no disponible",
+        "descripcion": "No permite iniciar sesi\u00F3n.",
+        "prioridad": "Alta",
+        "estado": "Pendiente",
+        "usuarioId": 3,
+        "usuario": "usuario",
+        "tecnicoId": null,
+        "tecnico": null,
+        "fechaCreacion": "2026-11-09T23:20:53.3007958Z",
+        "fechaResolucion": null
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "04 - T\u00E9cnico no elimina",
+    "request": {
+      "method": "DELETE",
+      "url": "/api/incidentes/1",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 403,
+      "body": null
+    },
+    "passed": true
+  },
+  {
+    "title": "07 - Usuario consulta incidente ajeno",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes/1",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 404,
+      "body": {
+        "success": false,
+        "message": "Incidente no encontrado.",
+        "requestId": "0HNPUN0BPJRR3",
+        "timestamp": "2026-11-09T23:20:53.4988412Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Usuario consulta propio",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes/1",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "id": 1,
+        "titulo": "Correo no disponible",
+        "descripcion": "No permite iniciar sesi\u00F3n.",
+        "prioridad": "Alta",
+        "estado": "Pendiente",
+        "usuarioId": 3,
+        "usuario": "usuario",
+        "tecnicoId": null,
+        "tecnico": null,
+        "fechaCreacion": "2026-11-09T23:20:53.3007958Z",
+        "fechaResolucion": null
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "08 - Cerrar sin resolver",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/estado",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "estado": "Cerrado"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "El estado solo avanza al siguiente. Primero asigne un t\u00E9cnico; para cerrar debe estar Resuelto. Un Cerrado no se reabre.",
+        "requestId": "0HNPUN0BPJRR5",
+        "timestamp": "2026-11-09T23:20:53.5497262Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Usuario no cambia estado",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/estado",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "estado": "EnProceso"
+      }
+    },
+    "response": {
+      "status": 403,
+      "body": null
+    },
+    "passed": true
+  },
+  {
+    "title": "T\u00E9cnico no asigna",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/asignar",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "tecnicoId": 2
+      }
+    },
+    "response": {
+      "status": 403,
+      "body": null
+    },
+    "passed": true
+  },
+  {
+    "title": "No asignar a usuario",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/asignar",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "tecnicoId": 3
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Debe seleccionar un usuario con rol Tecnico.",
+        "requestId": "0HNPUN0BPJRR8",
+        "timestamp": "2026-11-09T23:20:53.5764663Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "No asignar t\u00E9cnico inexistente",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/asignar",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "tecnicoId": 999
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Debe seleccionar un usuario con rol Tecnico.",
+        "requestId": "0HNPUN0BPJRR9",
+        "timestamp": "2026-11-09T23:20:53.580644Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Asignaci\u00F3n v\u00E1lida",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/asignar",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "tecnicoId": 2
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "id": 1,
+        "titulo": "Correo no disponible",
+        "descripcion": "No permite iniciar sesi\u00F3n.",
+        "prioridad": "Alta",
+        "estado": "Asignado",
+        "usuarioId": 3,
+        "usuario": "usuario",
+        "tecnicoId": 2,
+        "tecnico": "tecnico",
+        "fechaCreacion": "2026-11-09T23:20:53.3007958Z",
+        "fechaResolucion": null
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "No reasignar un incidente en atenci\u00F3n",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/asignar",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "tecnicoId": 4
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "Solo se asignan incidentes Pendientes; no se permite reasignaci\u00F3n.",
+        "requestId": "0HNPUN0BPJRRB",
+        "timestamp": "2026-11-09T23:20:53.6034596Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Caso 1 - T\u00E9cnico modifica ajeno",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/estado",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "estado": "EnProceso"
+      }
+    },
+    "response": {
+      "status": 404,
+      "body": {
+        "success": false,
+        "message": "Incidente no encontrado.",
+        "requestId": "0HNPUN0BPJRRC",
+        "timestamp": "2026-11-09T23:20:53.6330789Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Lista del t\u00E9cnico asignado",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "items": [
+          {
+            "id": 1,
+            "titulo": "Correo no disponible",
+            "descripcion": "No permite iniciar sesi\u00F3n.",
+            "prioridad": "Alta",
+            "estado": "Asignado",
+            "usuarioId": 3,
+            "usuario": "usuario",
+            "tecnicoId": 2,
+            "tecnico": "tecnico",
+            "fechaCreacion": "2026-11-09T23:20:53.3007958Z",
+            "fechaResolucion": null
+          }
+        ],
+        "total": 1,
+        "page": 1,
+        "pageSize": 10
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Lista del otro t\u00E9cnico",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "items": [],
+        "total": 0,
+        "page": 1,
+        "pageSize": 10
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Lista del otro usuario",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "items": [],
+        "total": 0,
+        "page": 1,
+        "pageSize": 10
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "No saltar de Asignado a Resuelto",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/estado",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "estado": "Resuelto"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "El estado solo avanza al siguiente. Primero asigne un t\u00E9cnico; para cerrar debe estar Resuelto. Un Cerrado no se reabre.",
+        "requestId": "0HNPUN0BPJRRG",
+        "timestamp": "2026-11-09T23:20:53.7428346Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Avanzar a EnProceso",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/estado",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "estado": "EnProceso"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "id": 1,
+        "titulo": "Correo no disponible",
+        "descripcion": "No permite iniciar sesi\u00F3n.",
+        "prioridad": "Alta",
+        "estado": "EnProceso",
+        "usuarioId": 3,
+        "usuario": "usuario",
+        "tecnicoId": 2,
+        "tecnico": "tecnico",
+        "fechaCreacion": "2026-11-09T23:20:53.3007958Z",
+        "fechaResolucion": null
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "No retroceder",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/estado",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "estado": "Asignado"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "El estado solo avanza al siguiente. Primero asigne un t\u00E9cnico; para cerrar debe estar Resuelto. Un Cerrado no se reabre.",
+        "requestId": "0HNPUN0BPJRRI",
+        "timestamp": "2026-11-09T23:20:53.7535648Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Resolver y registrar fecha",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/estado",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "estado": "Resuelto"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "id": 1,
+        "titulo": "Correo no disponible",
+        "descripcion": "No permite iniciar sesi\u00F3n.",
+        "prioridad": "Alta",
+        "estado": "Resuelto",
+        "usuarioId": 3,
+        "usuario": "usuario",
+        "tecnicoId": 2,
+        "tecnico": "tecnico",
+        "fechaCreacion": "2026-11-09T23:20:53.3007958Z",
+        "fechaResolucion": "2026-11-09T23:20:53.7563291Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Cerrar despu\u00E9s de resolver",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/estado",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "estado": "Cerrado"
+      }
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "id": 1,
+        "titulo": "Correo no disponible",
+        "descripcion": "No permite iniciar sesi\u00F3n.",
+        "prioridad": "Alta",
+        "estado": "Cerrado",
+        "usuarioId": 3,
+        "usuario": "usuario",
+        "tecnicoId": 2,
+        "tecnico": "tecnico",
+        "fechaCreacion": "2026-11-09T23:20:53.3007958Z",
+        "fechaResolucion": "2026-11-09T23:20:53.7563291Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Cerrado no se reabre",
+    "request": {
+      "method": "PUT",
+      "url": "/api/incidentes/1/estado",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "estado": "Pendiente"
+      }
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "El estado solo avanza al siguiente. Primero asigne un t\u00E9cnico; para cerrar debe estar Resuelto. Un Cerrado no se reabre.",
+        "requestId": "0HNPUN0BPJRRL",
+        "timestamp": "2026-11-09T23:20:53.7720792Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "L\u00EDmite de paginaci\u00F3n",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes?pageSize=1000000",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "page debe estar entre 1 y 1000000 y pageSize entre 1 y 100.",
+        "requestId": "0HNPUN0BPJRRM",
+        "timestamp": "2026-11-09T23:20:53.7790978Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "P\u00E1gina negativa",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes?page=-1",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "success": false,
+        "message": "page debe estar entre 1 y 1000000 y pageSize entre 1 y 100.",
+        "requestId": "0HNPUN0BPJRRN",
+        "timestamp": "2026-11-09T23:20:53.780873Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Filtro por estado y p\u00E1gina",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes?estado=Cerrado\u0026page=1\u0026pageSize=1",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 200,
+      "body": {
+        "items": [
+          {
+            "id": 1,
+            "titulo": "Correo no disponible",
+            "descripcion": "No permite iniciar sesi\u00F3n.",
+            "prioridad": "Alta",
+            "estado": "Cerrado",
+            "usuarioId": 3,
+            "usuario": "usuario",
+            "tecnicoId": 2,
+            "tecnico": "tecnico",
+            "fechaCreacion": "2026-11-09T23:20:53.3007958Z",
+            "fechaResolucion": "2026-11-09T23:20:53.7563291Z"
+          }
+        ],
+        "total": 1,
+        "page": 1,
+        "pageSize": 1
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Estado de filtro inv\u00E1lido",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes?estado=Invalido",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 400,
+      "body": {
+        "type": "https://tools.ietf.org/html/rfc9110#section-15.5.1",
+        "title": "One or more validation errors occurred.",
+        "status": 400,
+        "errors": {
+          "estado": [
+            "The value \u0027Invalido\u0027 is not valid."
+          ]
+        },
+        "traceId": "00-1dad349ff8f8b70c243df74f30254b6e-9e7bcee7ede09649-00"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "09 - Excepci\u00F3n controlada (ruta solo de pruebas)",
+    "request": {
+      "method": "GET",
+      "url": "/_test/throw",
+      "authorization": null,
+      "body": null
+    },
+    "response": {
+      "status": 500,
+      "body": {
+        "success": false,
+        "message": "Ocurri\u00F3 un error al procesar la solicitud.",
+        "requestId": "0HNPUN0BPJRRQ",
+        "timestamp": "2026-11-09T23:20:53.8543473Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "Administrador elimina cerrado",
+    "request": {
+      "method": "DELETE",
+      "url": "/api/incidentes/1",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 204,
+      "body": null
+    },
+    "passed": true
+  },
+  {
+    "title": "Eliminado devuelve 404",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes/1",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 404,
+      "body": {
+        "success": false,
+        "message": "Incidente no encontrado.",
+        "requestId": "0HNPUN0BPJRRS",
+        "timestamp": "2026-11-09T23:20:54.2894393Z"
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "T\u00E9cnico puede crear",
+    "request": {
+      "method": "POST",
+      "url": "/api/incidentes",
+      "authorization": "Bearer [JWT oculto]",
+      "body": {
+        "titulo": "Reporte t\u00E9cnico",
+        "descripcion": "Creado por t\u00E9cnico",
+        "prioridad": "Baja"
+      }
+    },
+    "response": {
+      "status": 201,
+      "body": {
+        "id": 2,
+        "titulo": "Reporte t\u00E9cnico",
+        "descripcion": "Creado por t\u00E9cnico",
+        "prioridad": "Baja",
+        "estado": "Pendiente",
+        "usuarioId": 2,
+        "usuario": "tecnico",
+        "tecnicoId": null,
+        "tecnico": null,
+        "fechaCreacion": "2026-11-09T23:20:54.293169Z",
+        "fechaResolucion": null
+      }
+    },
+    "passed": true
+  },
+  {
+    "title": "T\u00E9cnico creador sin asignaci\u00F3n no ve detalle",
+    "request": {
+      "method": "GET",
+      "url": "/api/incidentes/2",
+      "authorization": "Bearer [JWT oculto]",
+      "body": null
+    },
+    "response": {
+      "status": 404,
+      "body": {
+        "success": false,
+        "message": "Incidente no encontrado.",
+        "requestId": "0HNPUN0BPJRRU",
+        "timestamp": "2026-11-09T23:20:54.2993027Z"
+      }
+    },
+    "passed": true
+  }
+]

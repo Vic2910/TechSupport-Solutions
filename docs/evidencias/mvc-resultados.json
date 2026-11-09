@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "results": [
+    "Login MVC: usuario",
+    "Crear desde formulario MVC: incidente #2",
+    "Login MVC: admin",
+    "Admin asigna técnico desde MVC",
+    "Login MVC: tecnico",
+    "Técnico avanza a EnProceso",
+    "Técnico avanza a Resuelto",
+    "Técnico avanza a Cerrado",
+    "Login MVC: tecnico2",
+    "Otro técnico recibe 404 desde MVC",
+    "Login MVC: admin",
+    "Administrador elimina incidente cerrado desde MVC",
+    "Ruta temporal de excepción ausente en API normal: 404",
+    "POST MVC sin antiforgery rechazado: 400"
+  ]
+}

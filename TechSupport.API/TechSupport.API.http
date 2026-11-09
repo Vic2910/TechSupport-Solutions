@@ -1,0 +1,52 @@
+@baseUrl = http://localhost:5080
+@token = PEGAR_TOKEN_DEL_LOGIN
+@id = 1
+
+### Login (copiar token a la variable)
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{"nombreUsuario":"admin","password":"Demo123!"}
+
+### Crear
+POST {{baseUrl}}/api/incidentes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"titulo":"Correo no disponible","descripcion":"No permite iniciar sesión","prioridad":"Alta"}
+
+### Listar
+GET {{baseUrl}}/api/incidentes?page=1&pageSize=10
+Authorization: Bearer {{token}}
+
+### Detalle
+GET {{baseUrl}}/api/incidentes/{{id}}
+Authorization: Bearer {{token}}
+
+### Asignar técnico
+PUT {{baseUrl}}/api/incidentes/{{id}}/asignar
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"tecnicoId":2}
+
+### Avanzar (luego repetir con Resuelto y Cerrado)
+PUT {{baseUrl}}/api/incidentes/{{id}}/estado
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"estado":"EnProceso"}
+
+### Eliminar
+DELETE {{baseUrl}}/api/incidentes/{{id}}
+Authorization: Bearer {{token}}
+
+### Sin token: 401
+GET {{baseUrl}}/api/incidentes
+
+### Intento de salto: 400 si no está Resuelto
+PUT {{baseUrl}}/api/incidentes/{{id}}/estado
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{"estado":"Cerrado"}

@@ -2,4 +2,5 @@
   <Project Path="TechSupport Solutions.csproj" />
   <Project Path="TechSupport.API/TechSupport.API.csproj" />
   <Project Path="TechSupport.Contracts/TechSupport.Contracts.csproj" />
+  <Project Path="TechSupport.Tests/TechSupport.Tests.csproj" />
 </Solution>

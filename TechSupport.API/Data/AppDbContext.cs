@@ -18,6 +18,11 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         incident.Property(x => x.Estado).HasConversion<string>();
         incident.Property(x => x.Prioridad).HasConversion<string>();
         incident.Property(x => x.Version).IsConcurrencyToken();
+        // SQLite conserva los ticks pero no DateTime.Kind; restaurar UTC al materializar.
+        incident.Property(x => x.FechaCreacion).HasConversion(
+            value => value, value => DateTime.SpecifyKind(value, DateTimeKind.Utc));
+        incident.Property(x => x.FechaResolucion).HasConversion(
+            value => value, value => value.HasValue ? DateTime.SpecifyKind(value.Value, DateTimeKind.Utc) : (DateTime?)null);
         incident.HasOne(x => x.Usuario).WithMany().HasForeignKey(x => x.UsuarioId).OnDelete(DeleteBehavior.Restrict);
         incident.HasOne(x => x.Tecnico).WithMany().HasForeignKey(x => x.TecnicoId).OnDelete(DeleteBehavior.Restrict);
     }
