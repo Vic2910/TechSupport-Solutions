@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>TechSupport_Solutions</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="TechSupport.API/**;TechSupport.Contracts/**;TechSupport.Tests/**" />
+    <Content Remove="TechSupport.API/**;TechSupport.Contracts/**;TechSupport.Tests/**" />
+    <None Remove="TechSupport.API/**;TechSupport.Contracts/**;TechSupport.Tests/**" />
+    <ProjectReference Include="TechSupport.Contracts/TechSupport.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="TechSupport Solutions.csproj" />
+  <Project Path="TechSupport.API/TechSupport.API.csproj" />
+  <Project Path="TechSupport.Contracts/TechSupport.Contracts.csproj" />
+</Solution>
