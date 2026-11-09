@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="es">
+<head><meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>@ViewData["Title"] · TechSupport</title><link rel="stylesheet" href="~/css/site.css" asp-append-version="true" /></head>
+<body>
+<header class="topbar"><a class="brand" asp-controller="Incidentes" asp-action="Index"><span class="brand-mark">T</span> TechSupport <small>Solutions</small></a>
+@if (User.Identity?.IsAuthenticated == true) {
+<nav><span>@User.Identity.Name <span class="role">@User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value</span></span>
+<form asp-controller="Cuenta" asp-action="Salir" method="post"><button class="button subtle" type="submit">Salir</button></form></nav>
+}</header>
+<main class="container">
+@if (TempData["Success"] is string success) { <div class="notice success" role="status">@success</div> }
+@if (TempData["Error"] is string error) { <div class="notice error" role="alert">@error</div> }
+@RenderBody()
+</main>
+<footer>TechSupport Solutions <span>Gestión de incidentes · ASP.NET Core MVC + API</span></footer>
+<script src="~/js/site.js" asp-append-version="true"></script>
+@await RenderSectionAsync("Scripts", required: false)
+</body></html>

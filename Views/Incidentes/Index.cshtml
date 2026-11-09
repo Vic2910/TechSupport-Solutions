@@ -1,0 +1,16 @@
+@model ListadoViewModel
+@{ ViewData["Title"] = "Incidentes"; }
+<div class="page-heading"><div><p class="eyebrow">CENTRO DE SOPORTE</p><h1>Incidentes</h1><p class="muted">@(User.IsInRole("Administrador") ? "Supervisa todas las solicitudes y coordina al equipo." : User.IsInRole("Tecnico") ? "Aquí encontrarás los incidentes asignados a ti." : "Consulta y da seguimiento a tus solicitudes.")</p></div><a class="button primary" asp-action="Crear">+ Nuevo incidente</a></div>
+<section class="card">
+<form method="get" class="filter"><label for="estado">Filtrar por estado</label><select id="estado" name="estado"><option value="">Todos los estados</option>@foreach(var state in Enum.GetValues<Estado>()) { <option value="@state" selected="@(Model.Estado == state)">@state</option> }</select><button class="button" type="submit">Aplicar</button><span class="muted">@Model.Pagina.Total resultado(s)</span></form>
+@if (Model.Pagina.Items.Count == 0) { <div class="empty"><div class="empty-icon">✓</div><h2>No hay incidentes para mostrar</h2><p>Crea una solicitud o cambia el filtro para continuar.</p></div> }
+else {
+<div class="table-wrap"><table><thead><tr><th>Incidente</th><th>Prioridad</th><th>Estado</th><th>Técnico</th><th>Creación (UTC)</th><th></th></tr></thead><tbody>
+@foreach (var item in Model.Pagina.Items) {
+<tr><td><small>#@item.Id · @item.Usuario</small><strong>@item.Titulo</strong></td><td><span class="badge priority-@item.Prioridad">@item.Prioridad</span></td><td><span class="badge state-@item.Estado">@item.Estado</span></td><td>@(item.Tecnico ?? "Sin asignar")</td><td>@item.FechaCreacion.ToString("dd/MM/yyyy HH:mm")</td><td><a asp-action="Detalle" asp-route-id="@item.Id">Ver detalle →</a></td></tr>
+}</tbody></table></div>
+}
+<div class="pagination"><span>Página @Model.Pagina.Page de @Math.Max(1, (int)Math.Ceiling(Model.Pagina.Total / 10d))</span><div>
+@if(Model.Pagina.Page > 1) { <a class="button" asp-route-page="@(Model.Pagina.Page - 1)" asp-route-estado="@Model.Estado">Anterior</a> }
+@if(Model.Pagina.Page * 10 < Model.Pagina.Total) { <a class="button" asp-route-page="@(Model.Pagina.Page + 1)" asp-route-estado="@Model.Estado">Siguiente</a> }
+</div></div></section>

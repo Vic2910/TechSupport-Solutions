@@ -1,0 +1,20 @@
+@model DetalleViewModel
+@{ var item = Model.Incidente; ViewData["Title"] = $"Incidente #{item.Id}"; }
+<a class="back" asp-action="Index">← Volver a incidentes</a>
+<div class="page-heading"><div><p class="eyebrow">INCIDENTE #@item.Id</p><h1>@item.Titulo</h1></div><span class="badge priority-@item.Prioridad">Prioridad @item.Prioridad</span></div>
+<ol class="timeline">@foreach(var state in Enum.GetValues<Estado>()) { <li class="@((int)state <= (int)item.Estado ? "complete" : "")">@state</li> }</ol>
+<div class="detail-grid"><section class="card"><h2>Descripción</h2><p class="description">@item.Descripcion</p><dl><dt>Reportado por</dt><dd>@item.Usuario</dd><dt>Técnico asignado</dt><dd>@(item.Tecnico ?? "Sin asignar")</dd><dt>Creación (UTC)</dt><dd>@item.FechaCreacion.ToString("dd/MM/yyyy HH:mm")</dd><dt>Resolución (UTC)</dt><dd>@(item.FechaResolucion?.ToString("dd/MM/yyyy HH:mm") ?? "Aún no resuelto")</dd></dl></section>
+<aside class="card"><h2>Gestionar incidente</h2>
+@if (User.IsInRole("Administrador") && item.Estado == Estado.Pendiente) {
+<form asp-action="Asignar" asp-route-id="@item.Id" method="post"><label for="TecnicoId">Asignar técnico</label><select id="TecnicoId" name="TecnicoId" required><option value="">Selecciona un técnico</option>@foreach (var t in Model.Tecnicos) { <option value="@t.Id">@t.NombreUsuario</option> }</select><button class="button primary full" type="submit">Asignar incidente</button></form>
+}
+@if ((User.IsInRole("Administrador") || User.IsInRole("Tecnico")) && item.Estado != Estado.Pendiente && item.Estado != Estado.Cerrado) {
+var next = (Estado)((int)item.Estado + 1);
+<p class="muted">El próximo estado permitido es <strong>@next</strong>.</p><form asp-action="Estado" asp-route-id="@item.Id" method="post"><input type="hidden" name="Estado" value="@next" /><button class="button primary full" type="submit">Avanzar a @next</button></form>
+}
+@if (item.Estado == Estado.Cerrado) { <p>Este incidente está cerrado y no puede reabrirse. Si el problema vuelve, crea una nueva solicitud.</p> }
+@if (User.IsInRole("Usuario")) { <p class="muted">El equipo de soporte se encargará de actualizar el estado de tu solicitud.</p> }
+@if (User.IsInRole("Administrador")) {
+<hr /><details><summary class="danger-text">Eliminar incidente</summary><p>La eliminación es permanente, incluso si está cerrado. Se perderá el historial de esta solicitud.</p><form asp-action="Eliminar" asp-route-id="@item.Id" method="post" data-confirm="¿Eliminar definitivamente este incidente y su historial?"><button class="button danger" type="submit">Confirmar eliminación</button></form></details>
+}
+</aside></div>

@@ -1,0 +1,11 @@
+@model LoginRequest
+@{ ViewData["Title"] = "Iniciar sesión"; }
+<div class="login-grid">
+<section class="welcome"><p class="eyebrow">MESA DE AYUDA</p><h1>El soporte empieza<br />con orden.</h1><p>Registra cada solicitud, coordina la atención y sigue la solución en un solo lugar.</p><div class="steps"><span>01 · Registrar</span><span>02 · Atender</span><span>03 · Resolver</span></div></section>
+<section class="card login"><p class="eyebrow">BIENVENIDO</p><h2>Iniciar sesión</h2><p class="muted">Ingresa con tu cuenta de soporte.</p>
+<form asp-action="Login" method="post">
+<div asp-validation-summary="All" class="validation" role="alert"></div>
+<label asp-for="NombreUsuario">Usuario</label><input asp-for="NombreUsuario" autocomplete="username" required maxlength="50" />
+<label asp-for="Password">Contraseña</label><input asp-for="Password" type="password" autocomplete="current-password" required maxlength="72" />
+<button class="button primary full" type="submit">Entrar al panel →</button>
+</form></section></div>

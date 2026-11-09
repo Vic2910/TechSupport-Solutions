@@ -1,0 +1,10 @@
+@model CrearIncidenteRequest
+@{ ViewData["Title"] = "Nuevo incidente"; }
+<a class="back" asp-action="Index">← Volver a incidentes</a><div class="page-heading"><div><p class="eyebrow">NUEVA SOLICITUD</p><h1>Cuéntanos qué ocurrió</h1><p class="muted">El incidente se registrará como Pendiente.</p></div></div>
+<section class="card form-card"><form asp-action="Crear" method="post" data-single-submit>
+<div asp-validation-summary="All" class="validation" role="alert"></div>
+<label asp-for="Titulo">Título</label><input asp-for="Titulo" required maxlength="150" placeholder="Ej. No puedo acceder al correo" />
+<label asp-for="Descripcion">Descripción</label><textarea asp-for="Descripcion" required maxlength="3000" rows="6" placeholder="Describe el problema y los pasos para reproducirlo"></textarea>
+<label asp-for="Prioridad">Prioridad</label><select asp-for="Prioridad" asp-items="Html.GetEnumSelectList<Prioridad>()"></select>
+<div class="actions"><button class="button primary" type="submit">Guardar incidente</button><a class="button" asp-action="Index">Cancelar</a></div>
+</form></section>
