@@ -88,3 +88,5 @@ Los commits documentan avances reales de esta implementación; no se simulan dos
 8. Las vistas Razor muestran formularios, y la API vuelve a validar cada operación.
 
 Referencia técnica consultada: [JWT Bearer en ASP.NET Core 10](https://learn.microsoft.com/en-us/aspnet/core/security/authentication/configure-jwt-bearer-authentication?view=aspnetcore-10.0).
+# TechSupport-Solutions
+
